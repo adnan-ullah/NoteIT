@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">NoteIT</string>
+
+    <string name="sample_title">The Scientist</string>
+    <string name="sample_content">Scientists research has revealed that viruses are by far the most abundant life forms on Earth. There are a million times more viruses on the planet than stars in the universe. Viruses also harbor the majority of genetic diversity on Earth. Scientists are finding evidence of viruses as a planetary force, influencing the global climate and geochemical cycles. They have also profoundly shaped the evolution of their hosts. The human genome, for example, contains 100,000 segments of virus DNA.</string>
+</resources>
