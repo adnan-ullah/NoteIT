@@ -8,6 +8,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +32,8 @@ fun NoteItem(
     note: Note,
     cutCornerSize: Dp = 30.dp,
     cornerRadius: Dp = 10.dp,
-    onDeleteClick : () -> Unit
+    onDeleteClick : () -> Unit,
+    onFavouriteClick: () -> Unit
 ) {
 
     Box(modifier = modifier.padding(vertical = 10.dp))
@@ -85,11 +88,18 @@ fun NoteItem(
                 overflow = TextOverflow.Ellipsis
             )
 
-            IconButton(onClick = onDeleteClick ,
-                modifier =Modifier.align(Alignment.End)
-            ) {
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete Note")
-            }
+          Row(modifier= Modifier.align(Alignment.End))
+          {
+              IconButton(onClick = onDeleteClick ,
+
+              ) {
+                  Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete Note")
+              }
+              IconButton(onClick = onFavouriteClick ,
+              ) {
+                  Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Favorite Note")
+              }
+          }
         }
 
     }

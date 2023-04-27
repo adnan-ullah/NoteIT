@@ -71,7 +71,7 @@ fun AddEditNoteScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { viewModel.onEvent(AddEditNoteEvent.SaveNote) },
-                backgroundColor = Color.DarkGray
+                backgroundColor = Color(0xFFFFFFFF)
             ) {
                 Icon(imageVector = Icons.Default.Done, contentDescription = "Save Note")
             }
@@ -100,6 +100,7 @@ fun AddEditNoteScreen(
                     Box(
                         modifier = Modifier
                             .size(50.dp)
+                            .shadow(15.dp, CircleShape)
                             .clip(CircleShape)
                             .background(color)
                             .border(

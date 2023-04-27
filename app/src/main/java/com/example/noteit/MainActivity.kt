@@ -15,11 +15,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.noteit.features_note.presentation.add_edit_note.components.AddEditNoteScreen
+import com.example.noteit.features_note.presentation.notes.NoteScreenState
 import com.example.noteit.features_note.presentation.notes.NotesViewModel
-import com.example.noteit.features_note.presentation.notes.components.DefaultRadioButton
-import com.example.noteit.features_note.presentation.notes.components.NoteItem
-import com.example.noteit.features_note.presentation.notes.components.NoteScreen
-import com.example.noteit.features_note.presentation.notes.components.OrderSection
+import com.example.noteit.features_note.presentation.notes.components.*
+import com.example.noteit.features_note.presentation.profile.ProfileInfo
 import com.example.noteit.features_note.presentation.utils.Screen
 import com.example.noteit.ui.theme.NoteITTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,12 +41,26 @@ class MainActivity : ComponentActivity() {
 
                     val navController = rememberNavController()
                     
-                    NavHost(navController = navController, startDestination =Screen.NoteScreen.route )
+                    NavHost(navController = navController, startDestination =Screen.NoteScreen.route+ "?screen_name=${Screen.NoteScreen.route}" )
                     {
-                        composable(route = Screen.NoteScreen.route,
+                        composable(route = Screen.NoteScreen.route+"?screen_name=${Screen.NoteScreen.route}",
+                            arguments = listOf(
+                                navArgument(name = "screen_name"){
+                                    type= NavType.StringType
+                                    defaultValue=Screen.NoteScreen.route
+                                },
+                            )
+
                         )
                         {
                             NoteScreen(navController =navController)
+                        }
+
+                        composable(route = Screen.ProfileScreen.route){
+                            ProfileInfo(modifier = Modifier)
+                        }
+                        composable(route = Screen.FavouriteNotes.route){
+                            FavouriteScreen( navController= navController)
                         }
 
                         composable(route = Screen.AddEditNoteScreen.route+"?noteId={noteId}&noteColor={noteColor}",
