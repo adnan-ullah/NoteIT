@@ -1,16 +1,14 @@
 package com.example.noteit.features_note.presentation.add_edit_note
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.noteit.features_note.domain.model.InvalideNoteException
 import com.example.noteit.features_note.domain.model.Note
-import com.example.noteit.features_note.domain.use_case.NoteUseCases
+import com.example.noteit.features_note.domain.use_case.NoteUseCases.NoteUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.noteit.features_note.domain.model.Note
+import com.example.noteit.features_note.domain.model.ProductsItem
 import com.example.noteit.features_note.presentation.notes.NotesEvent
 import com.example.noteit.features_note.presentation.notes.NotesViewModel
 import com.example.noteit.features_note.presentation.profile.ProfileInfo
@@ -141,7 +142,7 @@ fun NoteScreen(
                                 },
                             note = note,
                             onDeleteClick = {
-                                viewModel.onEvent(NotesEvent.deleteNote(note))
+                             viewModel.onEvent(NotesEvent.deleteNote(note))
 
                                 scope.launch {
                                     var result = scaffoldState.snackbarHostState.showSnackbar(
@@ -154,7 +155,7 @@ fun NoteScreen(
                                 }
                             },
                             onFavouriteClick = {
-                                viewModel.onEvent(NotesEvent.addToFavourite(note))
+                              viewModel.onEvent(NotesEvent.addToFavourite(note))
                                 scope.launch {
                                   scaffoldState.snackbarHostState.showSnackbar(
                                         "Added to favourite."

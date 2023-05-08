@@ -6,8 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.noteit.features_note.common.Resource
 import com.example.noteit.features_note.domain.model.Note
-import com.example.noteit.features_note.domain.use_case.NoteUseCases
+import com.example.noteit.features_note.domain.model.ProductsItem
+import com.example.noteit.features_note.domain.use_case.NoteUseCases.NoteUseCases
 import com.example.noteit.features_note.domain.utils.NoteOrder
 import com.example.noteit.features_note.domain.utils.OrderType
 import com.example.noteit.features_note.presentation.utils.Screen
@@ -17,7 +19,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
@@ -33,9 +34,31 @@ class NotesViewModel @Inject constructor(
     private var getNotesJob: Job? = null
 
     init {
+
+
+        useCases.getNotesFromRemote().onEach {
+            when(it) {
+                is Resource.Success -> {
+                    val arrayList =it.data!!
+                    _state.value = state.value.copy(
+                        favouriteNoteList = arrayList.products as List<ProductsItem>
+                    )
+                    Log.d("isSuccess", "YES")
+                }
+                is Resource.Error -> {
+                    Log.d("isFailed", "NO")
+                }
+                is Resource.Loading -> {
+                    Log.d("isLoading", "YES")
+                }
+            }
+        }.launchIn(viewModelScope)
+
+
         savedStateHandle.get<String>("screen_name")?.let {
             if(it==Screen.NoteScreen.route)
              getNotes(NoteOrder.Date(OrderType.Ascending))
+
         }
 
     }
@@ -74,19 +97,7 @@ class NotesViewModel @Inject constructor(
                 )
             }
             is NotesEvent.addToFavourite ->{
-                viewModelScope.launch {
-                    val favouriteNote = useCases.addToFavourite(notesEvent.note)
-                    val favList = ArrayList(state.value.favouriteNoteList)
 
-                    favList.add(favouriteNote)
-
-                    _state.value = state.value.copy(
-                        favouriteNoteList = favList
-                    )
-
-                    Log.d("totalNotez", "onEvent: " +  _state.value.favouriteNoteList.size.toString())
-
-                }
             }
 
         }
@@ -97,7 +108,7 @@ class NotesViewModel @Inject constructor(
         getNotesJob = useCases.getNotes(noteOrder).onEach {notes ->
             _state.value = state.value.copy(
                 notes= notes,
-                noteOrder = noteOrder,
+                noteOrder = noteOrder
 
             )
         }.launchIn(viewModelScope)

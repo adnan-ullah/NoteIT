@@ -1,4 +1,4 @@
-package com.example.noteit.features_note.domain.use_case
+package com.example.noteit.features_note.domain.use_case.NoteUseCases
 
 import com.example.noteit.features_note.domain.model.InvalideNoteException
 import com.example.noteit.features_note.domain.model.Note

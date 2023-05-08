@@ -18,6 +18,8 @@ import com.example.noteit.features_note.presentation.add_edit_note.components.Ad
 import com.example.noteit.features_note.presentation.notes.NoteScreenState
 import com.example.noteit.features_note.presentation.notes.NotesViewModel
 import com.example.noteit.features_note.presentation.notes.components.*
+import com.example.noteit.features_note.presentation.products.components.HomePage
+import com.example.noteit.features_note.presentation.products.components.RootPage
 import com.example.noteit.features_note.presentation.profile.ProfileInfo
 import com.example.noteit.features_note.presentation.utils.Screen
 import com.example.noteit.ui.theme.NoteITTheme
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
                     val navController = rememberNavController()
                     
-                    NavHost(navController = navController, startDestination =Screen.NoteScreen.route+ "?screen_name=${Screen.NoteScreen.route}" )
+                    NavHost(navController = navController, startDestination =Screen.RootPage.route)
                     {
                         composable(route = Screen.NoteScreen.route+"?screen_name=${Screen.NoteScreen.route}",
                             arguments = listOf(
@@ -60,7 +62,13 @@ class MainActivity : ComponentActivity() {
                             ProfileInfo(modifier = Modifier)
                         }
                         composable(route = Screen.FavouriteNotes.route){
-                            FavouriteScreen( navController= navController)
+                            FavouriteScreen( navController= navController )
+                        }
+                        composable(route = Screen.HomePage.route){
+                            HomePage( navController= navController )
+                        }
+                        composable(route = Screen.RootPage.route){
+                            RootPage( navController = navController )
                         }
 
                         composable(route = Screen.AddEditNoteScreen.route+"?noteId={noteId}&noteColor={noteColor}",
